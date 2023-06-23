@@ -1,0 +1,253 @@
+<div class="page-container">
+  <h2 class="main-header">Форма реєстрації нового шкільного акаунту</h2>
+  <form [formGroup]="schoolForm" class="forms-container">
+    <form formGroupName="organizer" class="form-container">
+      <div class="fields-section">
+        <h2>Інформація про організатора акаунту</h2>
+        <div class="fields">
+          <mat-form-field appearance="outline">
+            <mat-label>Електронна пошта (логін організатора): </mat-label>
+            <input
+              matInput
+              type="email"
+              formControlName="email"
+              placeholder="example@gmail.com"
+            />
+            <mat-error>
+              <app-validator [control]="$any(schoolForm).email">
+              </app-validator>
+            </mat-error>
+            <ng-container *ngIf="$any(schoolForm).email.status === 'PENDING'">
+              <div>
+                <mat-spinner diameter="15"></mat-spinner>
+              </div>
+            </ng-container>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Пароль: </mat-label>
+            <input matInput type="password" formControlName="password" />
+            <mat-error>
+              <app-validator
+                [control]="$any(schoolForm).password"
+              ></app-validator>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Повторіть пароль: </mat-label>
+            <input matInput type="password" formControlName="passwordRepeat" />
+            <mat-error>
+              <app-validator
+                [control]="$any(schoolForm).passwordRepeat"
+              ></app-validator>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Ваше ім'я: </mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="firstName"
+              placeholder="Олександр(а)"
+            />
+            <mat-error>
+              <app-validator
+                [control]="$any(schoolForm).firstName"
+              ></app-validator>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>По-батькові: </mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="fatherName"
+              placeholder="Олександр(ович/івна)"
+            />
+            <mat-error>
+              <app-validator
+                [control]="$any(schoolForm).fatherName"
+              ></app-validator>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Ваше прізвище: </mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="lastName"
+              placeholder="Олександренко"
+            />
+            <mat-error>
+              <app-validator
+                [control]="$any(schoolForm).lastName"
+              ></app-validator>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Мобільний (для відновлення): </mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="phoneNumber"
+              placeholder="0931234567"
+            />
+            <mat-error>
+              <app-validator
+                [control]="$any(schoolForm).phoneNumber"
+              ></app-validator>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+    <form formGroupName="school" class="form-container">
+      <div class="fields-section">
+        <h2>Інформація про школу</h2>
+        <div class="find-school">
+          <mat-form-field appearance="outline">
+            <mat-label
+              >Код
+              <abbr title="Єдина Державна Електронна База з питань Освіти"
+                >ЄДЕБО</abbr
+              >:
+            </mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="edebo"
+              placeholder="000000"
+            />
+            <mat-error>
+              <app-validator [control]="$any(schoolForm).edebo"></app-validator
+            ></mat-error>
+            <ng-container *ngIf="$any(schoolForm).edebo.status === 'PENDING'">
+              <div>
+                <mat-spinner diameter="15"></mat-spinner>
+              </div>
+            </ng-container>
+          </mat-form-field>
+          <button mat-raised-button (click)="onDefineSchool()" type="button">
+            Знайти та презаповнити
+          </button>
+        </div>
+        <div class="grouped-fields-container">
+          <div class="mat-form-field-group">
+            <mat-form-field appearance="outline" class="grouped-form-field">
+              <mat-label>Повна назва: </mat-label>
+              <input matInput type="text" formControlName="fullName" readonly />
+              <mat-error>
+                <app-validator
+                  [control]="$any(schoolForm).fullName"
+                ></app-validator>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="grouped-form-field">
+              <mat-label>Скорочена назва: </mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="shortName"
+                readonly
+              />
+              <mat-error>
+                <app-validator
+                  [control]="$any(schoolForm).shortName"
+                ></app-validator>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mat-form-field-group">
+            <mat-form-field appearance="outline" class="grouped-form-field">
+              <mat-label>Тип закладу: </mat-label>
+              <input matInput type="text" formControlName="type" readonly />
+              <mat-error>
+                <app-validator
+                  [control]="$any(schoolForm).type"
+                ></app-validator>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="grouped-form-field">
+              <mat-label for="school-ownership">Тип власності: </mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="ownership"
+                readonly
+              />
+              <mat-error>
+                <app-validator
+                  [control]="$any(schoolForm).ownership"
+                ></app-validator>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mat-form-field-group">
+            <mat-form-field appearance="outline" class="grouped-form-field">
+              <mat-label>Юридична адреса: </mat-label>
+              <input matInput type="text" formControlName="address" readonly />
+              <mat-error>
+                <app-validator
+                  [control]="$any(schoolForm).address"
+                ></app-validator>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="grouped-form-field">
+              <mat-label>Робочий телефон: </mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="schoolPhoneNumber"
+                readonly
+              />
+              <mat-error>
+                <app-validator
+                  [control]="$any(schoolForm).schoolPhoneNumber"
+                ></app-validator>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mat-form-field-group">
+            <mat-form-field appearance="outline" class="grouped-form-field">
+              <mat-label>Директор закладу: </mat-label>
+              <input matInput type="text" formControlName="director" readonly />
+              <mat-error>
+                <app-validator
+                  [control]="$any(schoolForm).director"
+                ></app-validator>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <mat-checkbox formControlName="workStatus"> Працює </mat-checkbox>
+        </div>
+        <div class="location-section">
+          <h3>Місцезнаходження школи</h3>
+          <mat-form-field appearance="outline" class="one-mat-form-field">
+            <mat-label>Область, район, місто </mat-label>
+            <input matInput type="text" formControlName="koatuuName" readonly />
+            <mat-error>
+              <app-validator
+                [control]="$any(schoolForm).koatuuName"
+              ></app-validator>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </form>
+  <div class="proceed-container">
+    <button
+      mat-raised-button
+      type="submit"
+      class="proceed-button"
+      (click)="onSubmit()"
+    >
+      Продовжити
+    </button>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+.main-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  & > .logo {
+    width: 15%;
+    & img {
+      width: 100%;
+    }
+  }
+}
+
+.user-forms-button-list {
+  padding: 0;
+  width: 50%;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  & > li {
+    background-color: #F9F593;
+    border-radius: 76px;
+    width: 25%;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+
+    & > a {
+      display: block;
+      padding: 4% 10%;
+      font-weight: bold;
+      color: inherit;
+      text-decoration: none;
+      text-align: center;
+    }
+  }
+
+  & > li:hover {
+    background-color: #FF9BA1;
+  }
+}

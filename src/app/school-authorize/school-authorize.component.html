@@ -1,0 +1,37 @@
+<h2>Форма авторизації у шкільний акаунт</h2>
+<ng-container [formGroup]="loginForm">
+  <form class="form">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Пошта</mat-label>
+      <input
+        matInput
+        type="email"
+        formControlName="email"
+        placeholder="Enter email..."
+      />
+      <mat-error>
+        <app-validator
+          [control]="$any(loginForm.controls['email'])"
+        ></app-validator>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label for="login-passHash">Пароль</mat-label>
+      <input
+        matInput
+        id="login-passHash"
+        type="password"
+        formControlName="password"
+        placeholder="Enter password..."
+      />
+      <mat-error>
+        <app-validator
+          [control]="$any(loginForm.controls['password'])"
+        ></app-validator>
+      </mat-error>
+    </mat-form-field>
+  </form>
+  <div class="button-container">
+    <button mat-raised-button type="button" (click)="onSubmit()">Увійти</button>
+  </div>
+</ng-container>

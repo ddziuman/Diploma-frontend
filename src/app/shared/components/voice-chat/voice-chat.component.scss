@@ -1,0 +1,78 @@
+.chat-room {
+  width: 100%;
+  height: 100%;
+
+  padding: 50px;
+
+  display: flex;
+}
+.screen-share {
+  width: 100%;
+}
+
+.main-content {
+  flex: 1 1 80%;
+}
+.participants-header {
+  display: flex;
+  justify-content: center;
+
+  border-bottom: 1px solid var(--colors-sponsor);
+}
+.participants {
+  justify-self: flex-end;
+  flex: 0 0 20%;
+  max-width: 300px;
+
+  border: 1px solid var(--colors-sponsor);
+  border-radius: 7px;
+}
+.users {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 5px;
+  gap: 10px;
+}
+.mat-slide-toggle {
+  display: none;
+}
+.user-icon {
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  background-color: #e60023;
+  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.user {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  max-width: 100%;
+
+  font-size: 18px;
+}
+
+.user-name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  overflow: hidden;
+
+  max-width: calc(100% - 30px - 24px - 10px); //
+}
+.sound {
+  display: none;
+}
+.active-sound {
+  box-shadow: 0 0px 20px rgba(0, 0, 0, 0.3);
+  transform: scale(1.2, 1.2);
+}
+
+.my-micro {
+  cursor: pointer;
+}
+

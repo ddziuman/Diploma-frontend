@@ -1,0 +1,50 @@
+<ul class="validation-messages">
+  <ng-container *ngIf="control.errors && control.errors['required']">
+    <li class="validation-message">{{ validationMessages.required }}</li>
+  </ng-container>
+
+  <ng-container *ngIf="control.errors && control.errors['email']">
+    <li class="validation-message">
+      {{ validationMessages.email }}
+    </li>
+  </ng-container>
+
+  <ng-container *ngIf="control.errors && control.errors['nonUniqueUserEmail']">
+    <li class="validation-message">
+      {{ validationMessages.nonUniqueUserEmail }}
+    </li>
+  </ng-container>
+
+  <ng-container *ngIf="control.errors && control.errors['edeboAlreadyExists']">
+    <li class="validation-message">
+      {{ validationMessages.edeboAlreadyExists }}
+    </li>
+  </ng-container>
+
+  <ng-container *ngIf="control.errors && control.errors['minlength']">
+    <li class="validation-message">
+      {{ validationMessages.minLength | replace : '{{value}}' :
+      $any(control.errors['minlength']).requiredLength }}
+    </li>
+  </ng-container>
+
+  <ng-container *ngIf="control.errors && control.errors['maxlength']">
+    <li class="validation-message">
+      {{ validationMessages.maxLength | replace : '{{value}}' :
+      $any(control.errors['maxlength']).requiredLength }}
+    </li>
+  </ng-container>
+
+  <ng-container *ngIf="control.errors && control.errors['pattern']">
+    <li class="validation-message">
+      {{ validationMessages.pattern | replace : '{{pattern}}' :
+      $any(control.errors)['pattern'].requiredPattern }}
+    </li>
+  </ng-container>
+  <ng-container *ngIf="control.errors && control.errors['shouldBeEqual']">
+    <li class="validation-message">
+      {{ validationMessages.shouldBeEqual | replace : '{{fieldToBeEqual}}' :
+      $any(control.errors)['shouldBeEqual'].fieldToBeEqual }}
+    </li>
+  </ng-container>
+</ul>

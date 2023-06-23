@@ -1,0 +1,30 @@
+<mat-drawer-container autosize class="drawer-container">
+  <mat-drawer #drawer mode="side" opened class="drawer">
+    <div class="navigations">
+      <ul class="main-navigation-list">
+        <div>
+          <ng-container *ngFor="let sidenavLink of sidenavLinks">
+            <li class="navigation-item">
+              <button mat-button routerLinkActive="router-link-active">
+                <a [routerLink]="sidenavLink.link">
+                  {{ sidenavLink.label }}
+                </a>
+              </button>
+            </li>
+          </ng-container>
+        </div>
+      </ul>
+      <ul class="bottom-navigation-list">
+        <li>
+          <button mat-button>
+            <a (click)="logOut()">LogOut</a>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </mat-drawer>
+  <div class="sidenav-main-content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
+<ngx-spinner size="medium" color="#17A297"> </ngx-spinner>

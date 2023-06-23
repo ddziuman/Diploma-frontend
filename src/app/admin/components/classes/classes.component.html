@@ -1,0 +1,88 @@
+<ng-container
+  *ngIf="{
+    classes: classes$ | async
+  } as classes"
+>
+  <ng-container [formGroup]="classModel">
+    <div class="flex-container">
+      <ng-container *ngFor="let index of possibleClasses">
+        <div>
+          <div class="flex-item">
+            <h2>{{ index }}-Classes</h2>
+            <ng-container [formArrayName]="index">
+              <ng-container
+                *ngFor="
+                  let item of $any(classModel.get(index.toString())).controls;
+                  let i = index
+                "
+              >
+                <ng-container [formGroupName]="i">
+                  <div class="row-container">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Class name</mat-label>
+                      <input
+                        matInput
+                        formControlName="name"
+                        [readonly]="classDefined"
+                      />
+                      <mat-error>
+                        <app-validator
+                          [control]="
+                            $any(classModel.get(index.toString())).controls[
+                              i
+                            ].get('name')
+                          "
+                        ></app-validator>
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Class sequence</mat-label>
+                      <input
+                        matInput
+                        formControlName="sequence"
+                        type="number"
+                        [readonly]="classDefined"
+                      />
+                      <mat-error>
+                        <app-validator
+                          [control]="
+                            $any(classModel.get(index.toString())).controls[
+                              i
+                            ].get('sequence')
+                          "
+                        ></app-validator>
+                      </mat-error>
+                    </mat-form-field>
+                    <ng-container *ngIf="!classDefined">
+                      <mat-icon
+                        class="clear-icon"
+                        (click)="removeClass(index, i)"
+                        >clear</mat-icon
+                      >
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </div>
+          <ng-container *ngIf="!classDefined">
+            <div class="button-container">
+              <button mat-raised-button (click)="addClass(index)">
+                Додати класс
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+    <div class="bottom-panel">
+      <button
+        mat-raised-button
+        [disabled]="classDefined"
+        (click)="saveClasses()"
+      >
+        Save
+      </button>
+    </div>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,118 @@
+<ng-container *ngIf="classes$ | async as classes">
+  <mat-form-field appearance="outline">
+    <mat-label>Classes</mat-label>
+    <mat-select [formControl]="$any(classId)">
+      <ng-container *ngFor="let class of classes">
+        <mat-option [value]="class.id">
+          <span>{{ class.id }} · </span>
+          <span>{{ class.grade }} · </span>
+          <span>{{ class.name }}</span>
+        </mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+</ng-container>
+<ng-container *ngIf="classId.value && scheduleModel">
+  <ng-container [formGroup]="scheduleModel">
+    <ng-container *ngIf="subjects$ | async as subjects">
+      <div class="weekdays">
+        <ng-container *ngFor="let weekDay of weekDays; let index = index">
+          <h2>{{ weekDay }}</h2>
+          <ng-container [formArrayName]="weekDay">
+            <div class="slots">
+              <ng-container
+                *ngFor="
+                  let slot of $any(scheduleModel.get(weekDay)).controls;
+                  let i = index
+                "
+              >
+                <ng-container [formGroupName]="i">
+                  <div class="form-fields">
+                    <span>{{ i + 1 }}.</span>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Slot</mat-label>
+                      <input matInput formControlName="slot" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Subject</mat-label>
+                      <mat-select
+                        matInput
+                        formControlName="subjectId"
+                        (selectionChange)="selectionChange(index, i)"
+                      >
+                        <ng-container *ngFor="let option of subjects">
+                          <mat-option [value]="option.id">
+                            {{ option.name }}
+                          </mat-option>
+                        </ng-container>
+                      </mat-select>
+                      <mat-error>
+                        <app-validator
+                          [control]="
+                            $any(scheduleModel.controls[weekDay]).at(i)
+                              .controls['subjectId']
+                          "
+                        ></app-validator>
+                      </mat-error>
+                    </mat-form-field>
+                    <ng-container
+                      *ngIf="teachersOptionsArr$[index][i] | async as options"
+                    >
+                      <mat-form-field appearance="outline">
+                        <mat-label>Teacher</mat-label>
+                        <mat-select formControlName="teacherId">
+                          <ng-container *ngFor="let option of options">
+                            <mat-option [value]="option.id">
+                              {{ option.firstName }}
+                            </mat-option>
+                          </ng-container>
+                        </mat-select>
+                        <mat-error>
+                          <app-validator
+                            [control]="
+                              $any(scheduleModel.controls[weekDay]).at(i)
+                                .controls['teacherId']
+                            "
+                          ></app-validator>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-container>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Description</mat-label>
+                      <input matInput formControlName="description" />
+                      <mat-error>
+                        <app-validator
+                          [control]="
+                            $any(scheduleModel.controls[weekDay]).at(i)
+                              .controls['description']
+                          "
+                        ></app-validator>
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-icon (click)="deleteSlot(index, i)">clear</mat-icon>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+            <div class="button-container">
+              <ng-container
+                *ngIf="$any(scheduleModel.controls[weekDay]).length < 8"
+              >
+                <button
+                  mat-raised-button
+                  (click)="addSlot(index)"
+                  class="add-button"
+                >
+                  Add
+                </button>
+              </ng-container>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>
+<div class="bottom-panel">
+  <button mat-raised-button (click)="saveSchedule()">Save</button>
+</div>

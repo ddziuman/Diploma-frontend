@@ -1,0 +1,72 @@
+<h2>Teacher registration form</h2>
+<div class="form-container">
+  <ng-container [formGroup]="teacherModel">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error>
+        <app-validator [control]="teacherModel.email"></app-validator>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>password</mat-label>
+      <input matInput formControlName="password" />
+      <mat-error>
+        <app-validator [control]="teacherModel.password"></app-validator>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Repeat Password</mat-label>
+      <input matInput formControlName="passwordRepeat" />
+      <mat-error>
+        <app-validator [control]="teacherModel.passwordRepeat"></app-validator>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" />
+      <mat-error>
+        <app-validator [control]="teacherModel.firstName"></app-validator>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Father Name</mat-label>
+      <input matInput formControlName="fatherName" />
+      <mat-error>
+        <app-validator [control]="teacherModel.fatherName"></app-validator>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" />
+      <mat-error>
+        <app-validator [control]="teacherModel.lastName"></app-validator>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input matInput formControlName="phoneNumber" />
+      <mat-error>
+        <app-validator [control]="teacherModel.phoneNumber"></app-validator>
+      </mat-error>
+    </mat-form-field>
+    <ng-container *ngIf="subjects$ | async as subjects">
+      <mat-form-field appearance="outline">
+        <mat-label>Subjects</mat-label>
+        <mat-select formControlName="subjects" multiple>
+          <ng-container *ngFor="let subject of subjects">
+            <mat-option [value]="subject.id">
+              {{ subject.name }}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-error>
+          <app-validator [control]="teacherModel.subjects"></app-validator>
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+</div>
+<div class="bottom-panel">
+  <button mat-raised-button (click)="saveTeacher()">Save</button>
+</div>

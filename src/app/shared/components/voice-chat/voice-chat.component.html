@@ -1,0 +1,79 @@
+<div class="chat-room">
+  <main class="main-content">
+    <mat-tab-group>
+      <mat-tab label="Первая вкладка">
+        <app-test></app-test>
+      </mat-tab>
+      <mat-tab label="Вторая вкладка">
+        <video
+          #screenShareVideo
+          [muted]="true"
+          autoplay
+          class="screen-share"
+        ></video>
+      </mat-tab>
+    </mat-tab-group>
+  </main>
+  <section class="participants">
+    <h2 class="participants-header">Participants</h2>
+    <ul class="users">
+      <ng-container *ngFor="let video of videos">
+        <ng-container
+          *ngIf="{ isActive: video.audioTracker$ | async } as isActive"
+        >
+          <ng-container *ngIf="video.userId === currentUserId; else otherUser">
+            <li class="user">
+              <mat-icon
+                svgIcon="avatar-placeholder"
+                class="user-icon"
+                [ngClass]="{ 'active-sound': isActive.isActive }"
+              ></mat-icon>
+              <div class="user-name">{{ video.userId }}</div>
+              <mat-slide-toggle
+                [formControl]="video.microMutedControl"
+                class="mat-slide-toggle"
+                #toggleMicro
+              ></mat-slide-toggle>
+              <ng-container
+                *ngIf="video.microMutedControl.value; else notMuted"
+              >
+                <mat-icon class="my-micro" (click)="toggleMicro.toggle()"
+                  >mic_off</mat-icon
+                >
+              </ng-container>
+              <ng-template #notMuted>
+                <mat-icon class="my-micro" (click)="toggleMicro.toggle()"
+                  >mic</mat-icon
+                >
+              </ng-template>
+            </li>
+          </ng-container>
+          <ng-template #otherUser>
+            <li class="user">
+              <mat-icon
+                svgIcon="avatar-placeholder"
+                class="user-icon"
+                [ngClass]="{ 'active-sound': isActive.isActive }"
+              ></mat-icon>
+              <div class="user-name">{{ video.userId }}</div>
+              <mat-icon *ngIf="video.microMutedControl.value; else notMuted"
+                >mic_off</mat-icon
+              >
+              <ng-template #notMuted>
+                <mat-icon>mic</mat-icon>
+              </ng-template>
+            </li>
+          </ng-template>
+          <video
+            class="sound"
+            [srcObject]="video.srcObject"
+            [muted]="video.microMutedControl.value"
+          ></video>
+        </ng-container>
+      </ng-container>
+    </ul>
+  </section>
+</div>
+
+<div (click)="startScreenSharing()">start</div>
+<div (click)="stopScreenSharing()" *ngIf="localShareScreenPeers.size">stop</div>

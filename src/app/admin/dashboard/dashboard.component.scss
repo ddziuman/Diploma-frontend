@@ -1,0 +1,33 @@
+.drawer-container {
+  height: 100%;
+}
+.drawer {
+  display: flex;
+  flex-direction: column;
+}
+.navigations {
+  height: calc(100% - 47px);
+  margin: 20px 10px 0 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.navigation-item {
+}
+
+.sidenav-main-content {
+  padding: 25px;
+
+  padding-bottom: 100px;
+}
+.router-link-active {
+  background: #3f51b5;
+}
+
+.main-navigation-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 15px;
+}

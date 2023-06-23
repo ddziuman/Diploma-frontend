@@ -1,0 +1,18 @@
+<div #editor></div>
+
+<ng-container *ngIf="comments$ | async as comments">
+    <ng-container *ngFor="let commentItem of comments">
+        <div
+          tabindex="1"
+          (blur)="onCommentBlur($event, commentItem)"
+          (focus)="onCommentFocus($event, commentItem)"
+        >
+          {{ commentItem.comment }}
+        </div>
+      </ng-container>
+      
+</ng-container>
+<mat-paginator (page)="handlePageEvent($event)" [pageSize]="1" [pageIndex]="0" [length]="10">
+
+</mat-paginator>
+
